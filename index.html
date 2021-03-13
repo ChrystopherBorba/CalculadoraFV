@@ -19,7 +19,6 @@
             var taxa = document.getElementsByName("rbTaxa");
             var periodo = document.getElementsByName("rbPeriodo");
             if (taxa[0].checked) {
-                //var i = i / 12.0;
                 var i = ((Math.pow((1 + (i / 100)), (1 / 12))) - 1) * 100
             }
             if (periodo[0].checked) {
