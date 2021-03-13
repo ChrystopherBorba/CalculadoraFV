@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+    <script>
+        function calcular() {
+            var pmt = document.getElementById("PMT").value
+            var i = document.getElementById("i").value
+            var n = document.getElementById("n").value
+            var pv = document.getElementById("PV").value
+            var taxa = document.getElementsByName("rbTaxa");
+            var periodo = document.getElementsByName("rbPeriodo");
+            if (taxa[0].checked) {
+                //var i = i / 12.0;
+                var i = ((Math.pow((1 + (i / 100)), (1 / 12))) - 1) * 100
+            }
+            if (periodo[0].checked) {
+                var n = n * 12.0;
+            }
+            var fv = FV(pmt, i, n, pv);
+            resultado = fv.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+            console.log(resultado)
+            document.getElementById("resposta").value = resultado;
+        }
+        function FV(PMT, i, n, PV) {
+            var i = i / 100
+            return ((PV * (Math.pow(1 + i, n)))) + ((PMT * (Math.pow(1 + i, n) - 1)) / i)
+        }
+    </script>
+    <style>
+        body {
+            background-image: url("image4.jpg");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card"
+        style="width: 400px; margin-left: 35%; margin-top: 10%; background-color: rgba(22, 22, 22, 0.644);">
+        <div class="card-body">
+            <h3 style="color: white;">Cálculo de investimento</h3>
+            <div class="form-group">
+                <h5 style="color: white;">Aporte inicial:</h5>
+                <input class="form-control" id="PV">
+            </div>
+            <div class="form-group">
+                <h5 style="color: white;">Aporte mensal:</h5>
+                <input class="form-control" id="PMT">
+            </div>
+            <div class="form-group">
+                <h5 style="color: white;">Taxa:</h5>
+                <input class="form-control" id="i">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rbTaxa">
+                    <label style="color: white;" class="form-check-label" for="inlineRadio1">Anual</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rbTaxa">
+                    <label style="color: white;" class="form-check-label" for="inlineRadio2">Mensal</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <h5 style="color: white;">Período:</h5>
+                <input class="form-control" id="n">
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rbPeriodo">
+                    <label style="color: white;" class="form-check-label" for="inlineRadio1">Anos</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="rbPeriodo">
+                    <label style="color: white;" class="form-check-label" for="inlineRadio2">Meses</label>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <h5 style="color: white;">Valor futuro:</h5>
+                <input class="form-control" id="resposta" readonly>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button onclick="calcular()" class="btn btn-success mt-4" style="width: 100%;">Calcular</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
